@@ -7,6 +7,19 @@
 
 #!/usr/bin/env bash
 
+# Testing
+
+mkdir TEST
+cd ./TEST
+# how many text files to create
+fileNum=1
+files=5
+for i in {1..5}; do
+    touch "file$fileNum.txt"
+    (( ++fileNum ))
+done
+touch ./TEST/
+
 printf "\nEnter the path of the dir you want to copy:\n"
 read source
 if cd "$(find . -type d -name "$source")"; then 
