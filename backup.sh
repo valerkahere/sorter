@@ -8,10 +8,19 @@
 #!/usr/bin/env bash
 
 printf "\nEnter the path of the dir you want to copy:\n"
-read argument
-if cd "$(find . -type d -name "$argument")"; then 
+read source
+if cd "$(find . -type d -name "$source")"; then 
     printf "Current directory: "$PWD""
     printf "\nNavigated successfully.\n"
 else 
     printf "\nNo dir with such name.\n" >&2;
 fi
+
+printf "\nEnter the path of the destination dir\n:"
+read destination
+
+# cp --debug -ri --target-directory=DIRECTORY
+# debug: explain how files is copied
+# i: prompt before overwrite
+# r: copy directories recursively
+# v: explain what is being done
