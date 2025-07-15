@@ -7,5 +7,11 @@
 
 #!/usr/bin/env bash
 
-printf "\nEnter the path of the files you want to copy:\n"
+printf "\nEnter the path of the dir you want to copy:\n"
 read argument
+if cd "$(find . -type d -name "$argument")"; then 
+    printf "Current directory: "$PWD""
+    printf "\nNavigated successfully.\n"
+else 
+    printf "\nNo dir with such name.\n" >&2;
+fi
