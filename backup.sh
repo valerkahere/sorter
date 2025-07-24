@@ -34,7 +34,7 @@ read source
 if cd "$(find . -type d -path "$source")"
 then # -D all for debugopts 
     printf "Current directory: "$PWD""
-    currentdir=$PWD
+    savedir=$PWD
     printf "\nNavigated successfully.\n"
     # the cd searcher for any dir that's why navigates anyway
 else 
@@ -43,7 +43,7 @@ else
     # Actually need: 1>&2
 fi
 
-cd ../..; mkdir BACKUP; cp --debug -v -ri "$currentdir" "./BACKUP" 
+cd "/home/$(whoami)"; mkdir BACKUP; cp --debug -v -ri "$savedir" "./BACKUP" 
 printf "\nCopied successfully to BACKUP folder in present working directory."
 
 printf "\nError: %s\n" "could not copy\n" >/dev/seterr
