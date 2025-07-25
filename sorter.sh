@@ -25,11 +25,11 @@ testing() {
 
 if testing
 then
-    printf "\nTest files with .mp4 extension created in ./test folder\n"
+    printf "\nCreated test files with .mp4 extension created in ./test folder\n"
 else
     printf "\nError: could not create test folder and files\n" >2
-
-printf "\nThis is the present working directory:\n\n"
+fi
+printf "\nThis is the present working directory while execeuting the script:\n\n"
 pwd
 
 printf "\nCreated test files in test folder as follows:\n\n"
