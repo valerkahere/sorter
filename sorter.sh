@@ -12,7 +12,7 @@ testing() {
 
     for (( i=0; i<=5; i++ ))
     do
-        touch "file$i.mp4" "sample$i.txt" "photo$i.jpg" "bruh$i.jpeg" "reading$i.pdf"
+        touch "file$i.mp4" "sample$i.txt" "bruh$i.jpeg" "$i.jpg" "reading$i.pdf"
     done
 }
 
@@ -34,6 +34,20 @@ pwd
 # docs files, videos, photos
 mkdir 'videos' 'docs' 'photos' 2>/dev/null
 
+printf "\nTrying to match files first and figure out what extensions are there:"
+# Make FD2 write to where FD1 is writing
+output=$(find . -path "**/*.jpg" -print0 -quit 1>/dev/null 2>&1) 
+
+
+if [ "${my_variable:-'default value'}" = 'default value' ]; then
+    printf "\n .jpg files are not there\n"
+else
+    printf "\n$output"
+    printf "\n => .jpg is there\n"
+fi
+
+# :- operator checks if the value is null, and if it is, sets the "default value"
+
 printf "\nSorting the files based on their extension:\n"
 
 printf "Videos:\n"
@@ -52,4 +66,3 @@ printf "Docs:\n"
 mv *.txt *.docs *.pdf --target-directory=./docs --update --strip-trailing-slashes --interactive --verbose 
 printf "\n"
 
-# Или чтобы уменьшить количество ошибок, привязать stdout ls к mv? Use for loop?

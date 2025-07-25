@@ -1,3 +1,10 @@
+# personal
+
 notes/
 **/*todo*.md  
 # matching all todo.md files no matter what directory they are currently in
+
+# for testing purposes
+**/*test*
+test/
+
