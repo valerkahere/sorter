@@ -52,17 +52,17 @@ printf "\nSorting the files based on their extension:\n"
 
 printf "Videos:\n"
 # Sorts .mp4, .MOV into ./test/videos dir
-mv *.mp4 *.MOV --target-directory=./videos --update --strip-trailing-slashes --interactive --verbose
+yes | mv *.mp4 *.MOV --target-directory=./videos --update --strip-trailing-slashes --interactive --verbose
 printf "\n"
 
 
 printf "Photos:\n"
 # Sorts .jpg, .jpeg into ./test/photos dir
-mv *.jpg *.jpeg --target-directory=./photos --update --strip-trailing-slashes --interactive --verbose 
+yes | mv *.jpg *.jpeg --target-directory=./photos --update --strip-trailing-slashes --interactive --verbose 
 printf "\n"
 
 printf "Docs:\n"
 # Sorts .txt, .docs, .pdf into ./test/docs dir
-mv *.txt *.docs *.pdf --target-directory=./docs --update --strip-trailing-slashes --interactive --verbose 
+yes | mv *.txt *.docs *.pdf --target-directory=./docs --update --strip-trailing-slashes --interactive --verbose 
 printf "\n"
 
