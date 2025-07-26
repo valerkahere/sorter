@@ -9,8 +9,6 @@ printf "\nEnter the path of the folder to move:\n"
 read pathtodir
 cd "$pathtodir"
 
-printf "\nThis is the present working directory while executing the script:\n\n"
-pwd
 # Creating a function for error handling
 testing() { 
     mkdir 'MOVED' 2>/dev/null
@@ -62,3 +60,8 @@ then
 else
     printf "\nError: could not move test files.\n" >2
 fi
+
+printf "\nThis is the present working directory while executing the script:\n"
+pwd
+
+
