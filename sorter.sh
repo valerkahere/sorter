@@ -18,7 +18,7 @@ testing() {
 
 if testing
 then
-    printf "\nCreated test files with .mp4 extension created in ./test folder\n"
+    printf "\nCreated test files with .mp4; .txt; .jpeg; .jpg; .pdf extensions created in ./test folder\n"
 else
     printf "\nError: could not create test folder and files\n" >2
 fi
@@ -30,24 +30,38 @@ ls
 printf "\nThis is the present working directory while executing the script:\n\n"
 pwd
 
-# creating actual folders:
-# docs, files, videos, photos
 
 printf "\nSorting the files based on their extension:\n"
 
-printf "Videos:\n"
-# Sorts .mp4, .MOV into ./test/videos dir
-yes | mv *.mp4 *.MOV --target-directory=./videos --update --strip-trailing-slashes --interactive --verbose
-printf "\n"
+sorting() {
+
+    # creating actual folders:
+    # docs, files, videos, photos
+    
+    mkdir 'videos' 'photos' 'docs'
+    printf "Videos:\n"
+    
+    # Sorts .mp4, .MOV into ./test/videos dir
+    yes | mv *.mp4 *.MOV --target-directory=./videos --update --strip-trailing-slashes --interactive --verbose
+    printf "\n"
 
 
-printf "Photos:\n"
-# Sorts .jpg, .jpeg into ./test/photos dir
-yes | mv *.jpg *.jpeg --target-directory=./photos --update --strip-trailing-slashes --interactive --verbose 
-printf "\n"
+    printf "Photos:\n"
 
-printf "Docs:\n"
-# Sorts .txt, .docs, .pdf into ./test/docs dir
-yes | mv *.txt *.docs *.pdf --target-directory=./docs --update --strip-trailing-slashes --interactive --verbose 
-printf "\n"
+    # Sorts .jpg, .jpeg into ./test/photos dir
+    yes | mv *.jpg *.jpeg --target-directory=./photos --update --strip-trailing-slashes --interactive --verbose 
+    printf "\n"
 
+    printf "Docs:\n"
+    
+    # Sorts .txt, .docs, .pdf into ./test/docs dir
+    yes | mv *.txt *.docs *.pdf --target-directory=./docs --update --strip-trailing-slashes --interactive --verbose 
+    printf "\n"
+}
+
+if sorting
+then
+    printf "\nSorted test files in and moved them to videos, photos and docs folders accordingly.\n"
+else
+    printf "\nError: could not move test files.\n" >2
+fi
