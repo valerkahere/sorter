@@ -6,8 +6,16 @@
 printf "\nWelcome\n"
 
 printf "\nEnter the path of the folder to sort AS IT IS (white spaces are handled automatically):\n"
+printf "Confirm change1234"
 read 'pathtodir'
-cd "$pathtodir"
+
+if cd "$pathtodir"
+then
+    printf "Path accepted."
+else
+    printf "Wrong path. Stopping...\n"
+    exit 1
+fi
 
 # Creating a function for error handling
 testing() { 
