@@ -5,7 +5,7 @@
 
 printf "\nWelcome\n"
 
-printf "\nEnter the path of the folder to sort:\n"
+printf "\nEnter the path of the folder to sort AS IT IS (white spaces are handled automatically):\n"
 read 'pathtodir'
 cd "$pathtodir"
 
