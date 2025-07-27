@@ -7,7 +7,7 @@ printf "\nWelcome\n"
 
 printf "\nEnter the path of the folder to sort AS IT IS (white spaces are handled automatically):\n"
 
-read 'pathtodir'
+read pathtodir
 
 if cd "$pathtodir"
 then
@@ -53,27 +53,31 @@ sorting() {
     
     # PATH: /home/user/Desktop/TEST/MOVED
 
-    mkdir 'videos' 'photos' 'docs' 'audios'
+    mkdir 'videos' 'photos' 'docs' 'audios' 'other'
     printf "Videos:\n"
     
-    mv *.mp4 *.MOV --target-directory=./videos --update --interactive --verbose
+    mv *.mp4 *.MOV *.mov --target-directory=./videos --update --interactive --verbose
     printf "\n"
 
 
     printf "Photos:\n"
 
-    mv *.jpg *.jpeg *.png --target-directory=./photos --update --interactive --verbose 
+    mv --target-directory=./photos --update --interactive --verbose -- *.jpg *.jpeg *.png *.webp
     printf "\n"
 
     printf "Docs:\n"
     
-    mv *.txt *.docx *.doc *.zip *.fb2 *.pdf *.xlsx *.pptx --target-directory=./docs --update --interactive --verbose 
+    mv --target-directory=./docs --update --interactive --verbose -- *.txt *.docx *.doc *.zip *.fb2 *.pdf *.xlsx *.pptx *.ics *.md *.epub
     printf "\n"
 
     printf "Audios:\n"
     
-    mv *.mp3 *.m4a --target-directory=./audios --update --interactive --verbose 
+    mv --target-directory=./audios --update --interactive --verbose -- *.mp3 *.m4a  
     printf "\n"
+
+
+    printf "Other (no extension):\n"
+    find . -maxdepth 1 -type f -exec mv --target-directory=./other --update --interactive --verbose {} \+
 }
 
 if sorting
