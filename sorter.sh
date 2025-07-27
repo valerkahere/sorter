@@ -1,5 +1,5 @@
 
-#!/user/bin/env bash
+#!/usr/bin/env bash
 
 # printf "\n\n"
 
