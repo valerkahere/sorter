@@ -13,7 +13,7 @@ if cd "$pathtodir"
 then
     printf "Path accepted."
 else
-    printf "Wrong path. Stopping...\n"
+    printf "Wrong path. Stopping...\n" 1>&2
     exit 1
 fi
 
@@ -28,7 +28,7 @@ then
 
     ls
 else
-    printf "\nError: could not create "MOVED" dir\n" >2
+    printf "\nError: could not create "MOVED" dir\n" 1>&2
     exit 1
 fi
 
@@ -38,7 +38,7 @@ if find . -type f -exec mv {} ../MOVED \;
 then
     printf "\nAll regular files are moved to '../MOVED'\n"
 else
-    printf "\nError: Could not move files" >2
+    printf "\nError: Could not move files" 1>&2
     exit 1
 fi
 
@@ -47,6 +47,7 @@ sorting() {
     printf "\nSorting the files based on their extension:\n"
 
     cd '../MOVED'
+    pwd
     # creating actual folders:
     # docs, files, videos, photos
     
@@ -80,7 +81,7 @@ if sorting
 then
     printf "\nSorted test files in and moved them to videos, photos and docs folders accordingly.\n"
 else
-    printf "\nError: could not move test files.\n" >2
+    printf "\nError: could not move test files.\n" 1>&2
     exit 1
 fi
 
