@@ -6,7 +6,7 @@
 printf "\nWelcome\n"
 
 printf "\nEnter the path of the folder to sort AS IT IS (white spaces are handled automatically):\n"
-printf "Confirm change1234"
+
 read 'pathtodir'
 
 if cd "$pathtodir"
