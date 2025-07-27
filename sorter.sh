@@ -56,24 +56,23 @@ sorting() {
     mkdir 'videos' 'photos' 'docs' 'audios'
     printf "Videos:\n"
     
-    mv *.mp4 *.MOV --target-directory=./videos --update --strip-trailing-slashes --interactive --verbose
+    mv *.mp4 *.MOV --target-directory=./videos --update --interactive --verbose
     printf "\n"
 
 
     printf "Photos:\n"
 
-    mv *.jpg *.jpeg *.png --target-directory=./photos --update --strip-trailing-slashes --interactive --verbose 
+    mv *.jpg *.jpeg *.png --target-directory=./photos --update --interactive --verbose 
     printf "\n"
 
     printf "Docs:\n"
     
-    
-    mv *.txt *.docx *.doc *.zip *.fb2 *.pdf *.xlsx *.pptx --target-directory=./docs --update --strip-trailing-slashes --interactive --verbose 
+    mv *.txt *.docx *.doc *.zip *.fb2 *.pdf *.xlsx *.pptx --target-directory=./docs --update --interactive --verbose 
     printf "\n"
 
     printf "Audios:\n"
     
-    mv *.mp3 *.m4a --target-directory=./audios --update --strip-trailing-slashes --interactive --verbose 
+    mv *.mp3 *.m4a --target-directory=./audios --update --interactive --verbose 
     printf "\n"
 }
 
