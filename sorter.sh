@@ -18,32 +18,34 @@ else
 fi
 
 # Creating a function for error handling
-testing() { 
-    
-    
+creating() { 
     mkdir '../MOVED' 2>/dev/null
-    
-
-    
 }
 
-if testing
+if creating
 then
     printf "\nCreated "MOVED" dir one level higher than the SOURCE, where SOURCE will be moved to\n"
 
     ls
 else
     printf "\nError: could not create "MOVED" dir\n" >2
+    exit 1
 fi
 
 # all contents (files) from dirs in the SOURCE dir will be first recursively moved to "MOVED" dir
 
-find . -type f -exec mv {} ../MOVED \;
+if find . -type f -exec mv {} ../MOVED \;
+then
+    printf "\nAll regular files are moved to '../MOVED'\n"
+else
+    printf "\nError: Could not move files" >2
+    exit 1
+fi
 
-
-printf "\nSorting the files based on their extension:\n"
 
 sorting() {
+    printf "\nSorting the files based on their extension:\n"
+
     cd '../MOVED'
     # creating actual folders:
     # docs, files, videos, photos
@@ -79,6 +81,7 @@ then
     printf "\nSorted test files in and moved them to videos, photos and docs folders accordingly.\n"
 else
     printf "\nError: could not move test files.\n" >2
+    exit 1
 fi
 
 printf "\nThis is the present working directory while executing the script:\n"
