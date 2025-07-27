@@ -54,6 +54,7 @@ sorting() {
     # PATH: /home/user/Desktop/TEST/MOVED
 
     mkdir 'videos' 'photos' 'docs' 'audios' 'other'
+    
     printf "Videos:\n"
     
     mv *.mp4 *.MOV *.mov --target-directory=./videos --update --interactive --verbose
