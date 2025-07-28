@@ -57,7 +57,7 @@ sorting() {
     
     printf "Videos:\n"
     
-    mv *.mp4 *.MOV *.mov --target-directory=./videos --update --interactive --verbose
+    mv --target-directory=./videos --update --interactive --verbose -- *.mp4 *.MOV *.mov
     printf "\n"
 
 
