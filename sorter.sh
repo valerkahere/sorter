@@ -59,23 +59,29 @@ sorting() {
 
     exiftool '-Directory<FileModifyDate' -d '%Y/%m-%B/%d-%m-%Y/photos' -if '$FileTypeExtension =~ /jpe?g|png|webp|gif|bmp|tiff/i' -ext jpg -ext jpeg -ext png -ext webp -ext gif -ext bmp -ext tiff .
 
+    printf "\nSorted Photos.\n"
+
     # Videos
 
     exiftool '-Directory<DateTimeOriginal' -d '%Y/%m-%B/%d-%m-%Y/videos' -if '$FileTypeExtension =~ /mp4|mov|avi|mkv|wmv/i' -ext mp4 -ext mov -ext avi -ext mkv -ext wmv .
 
     exiftool '-Directory<FileModifyDate' -d '%Y/%m-%B/%d-%m-%Y/videos' -if '$FileTypeExtension =~ /mp4|mov/i' -ext mp4 -ext mov -ext avi -ext mkv -ext wmv .
 
+    printf "\nSorted Videos.\n"
+
+    # Came to conclusion that I don't want audios and docs sorted in the '%Y/%m-%B/%d-%m-%Y/audios' format
     # Audios
 
-    exiftool '-Directory<DateTimeOriginal' -d '%Y/%m-%B/%d-%m-%Y/audios' -if '$FileTypeExtension =~ /mp3|flac|m4a|wav|ogg/i' -ext mp3 -ext flac -ext m4a -ext wav -ext ogg .
+    mv --target-directory=./audios --update --interactive --verbose -- *.mp3 *.m4a
 
-    exiftool '-Directory<FileModifyDate' -d '%Y/%m-%B/%d-%m-%Y/audios' -if '$FileTypeExtension =~ /mp3|flac|m4a|wav|ogg/i' -ext mp3 -ext flac -ext m4a -ext wav -ext ogg . 
+    printf "\nSorted Audios.\n"
 
     # Docs
+    mv --target-directory=./docs --update --interactive --verbose -- *.txt *.docx *.doc *.zip *.fb2 *.pdf *.xlsx *.pptx *.ics *.md *.epub
 
-    exiftool '-Directory<DateTimeOriginal' -d '%Y/%m-%B/%d-%m-%Y/docs' -if '$FileTypeExtension =~ /pdf|doc|docx|xls|xlsx|ppt|pptx|csv/i' -ext pdf -ext doc -ext docx -ext xls -ext xlsx -ext ppt -ext pptx -ext csv .
+    printf "\nSorted Docs.\n"
 
-    exiftool '-Directory<FileModifyDate' -d '%Y/%m-%B/%d-%m-%Y/docs' -if '$FileTypeExtension =~ /pdf|doc|docx|xls|xlsx|ppt|pptx|csv/i' -ext pdf -ext doc -ext docx -ext xls -ext xlsx -ext ppt -ext pptx -ext csv . 
+   
 }
 
 if sorting
