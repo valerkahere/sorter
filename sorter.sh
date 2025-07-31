@@ -43,6 +43,35 @@ else
 fi
 
 
+isAudio() {
+    # Audios
+    # If they audio files are not in the folder - do not create folder for them
+
+    find . -type f \( \
+    -iname "*.mp3" -o \
+    -iname "*.m4a" -o \
+    -iname "*.flac" -o \
+    -iname "*.wav" -o \
+    -iname "*.ogg" \
+    \) -print -quit
+}
+
+isDocs() {
+    #Docs
+
+    find . -type f \( \
+    -iname "*.doc" -o \
+    -iname "*.docx" -o \
+    -iname "*.pdf" -o \
+    -iname "*.xls" -o \
+    -iname "*.xlsx" -o \
+    -iname "*.ppt" -o \
+    -iname "*.pptx" -o \
+    -iname "*.csv" \
+    \) -print -quit
+}
+
+
 sorting() {
 
     cd './MOVED'
@@ -74,19 +103,42 @@ sorting() {
 
     printf "Sorted Videos.\n\n"
 
-    # Came to conclusion that I don't want audios and docs sorted in the '%Y/%m-%B/%d-%m-%Y/audios' format
-    # Audios
-
-    mv --target-directory=./audios --update --interactive --verbose -- *.mp3 *.m4a
-
+    #Audio
+    if isAudio
+    then 
+    printf "Audio files exist in current folder. Creating 'audios'.\n\n"
+    mkdir 'audios'
+    mv --target-directory=./audios --update --interactive --verbose -- \
+    *.mp3 \
+    *.m4a \
+    *.flac \
+    *.m4a \
+    *.wav \
+    *.ogg
     printf "Sorted Audios.\n\n"
+    else
+    printf "There are no audio files according to available extensions.\n\n"
+    fi
+    
 
     # Docs
-    mv --target-directory=./docs --update --interactive --verbose -- *.txt *.docx *.doc *.zip *.fb2 *.pdf *.xlsx *.pptx *.ics *.md *.epub
-
+    if isDocs
+    then 
+    printf "Docs files exist in current folder. Creating 'docs'.\n\n"
+    mkdir 'docs'
+    mv --target-directory=./docs --update --interactive --verbose -- \
+    *.txt *.TXT *.Txt \
+    *.docx *.doc *.DOCX *.DOC \
+    *.zip *.ZIP \
+    *.fb2 *.FB2 \
+    *.pdf *.PDF \
+    *.xls *.xlsx *.XLS *.XLSX \
+    *.ppt *.pptx *.PPT *.PPTX \
+    *.ics *.md *.epub *.csv *.ICS *.MD *.EPUB *.CSV
     printf "Sorted Docs.\n\n"
-
-   
+    else
+    printf "There are no docs files according to available extensions.\n\n"
+    fi
 }
 
 if sorting
