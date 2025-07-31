@@ -1,7 +1,4 @@
-
 #!/usr/bin/env bash
-
-# printf "\n\n"
 
 printf "\nWelcome\n"
 
