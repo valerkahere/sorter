@@ -2,7 +2,8 @@
 
 printf "\nWelcome\n"
 
-printf "\nEnter the path of the (SOURCE) folder to sort AS IT IS (white spaces are handled automatically):\n"
+printf "\nEnter the path of the (SOURCE) folder to sort AS IT IS (white spaces are handled automatically)\n"
+printf "Bear in mind, tilde expansion (~) does not work: \n"
 
 read pathtodir
 
@@ -44,13 +45,33 @@ isAudio() {
     # Audios
     # If they audio files are not in the folder - do not create folder for them
 
-    find . -type f \( \
+
+
+    output=$(find . -type f \( \
     -iname "*.mp3" -o \
     -iname "*.m4a" -o \
     -iname "*.flac" -o \
-    -iname "*.wav" -o \
+    -iname "*.jpg" -o \
     -iname "*.ogg" \
-    \) -print -quit
+    \) -quit)
+    
+    if [[ -z "$output" ]]
+    then
+    printf "No audio files."
+    else
+    printf "Some audio files will be moved know.\n"
+    printf "Creating 'audios' folder.\n\n"
+    mkdir 'audios'
+    mv --target-directory=./audios --update --interactive --verbose -- \
+    *.mp3 \
+    *.m4a \
+    *.flac \
+    *.m4a \
+    *.wav \
+    *.ogg
+    printf "Sorted Audios.\n\n"
+    fi
+   
 }
 
 isDocs() {
@@ -103,18 +124,9 @@ sorting() {
     #Audio
     if isAudio
     then 
-    printf "Audio files exist in current folder. Creating 'audios'.\n\n"
-    mkdir 'audios'
-    mv --target-directory=./audios --update --interactive --verbose -- \
-    *.mp3 \
-    *.m4a \
-    *.flac \
-    *.m4a \
-    *.wav \
-    *.ogg
-    printf "Sorted Audios.\n\n"
+    printf "Successfully sorted audios.\n\n"
     else
-    printf "There are no audio files according to available extensions.\n\n"
+    printf "Error: Could not decide on audio files.\n\n"
     fi
     
 
@@ -146,13 +158,23 @@ else
     exit 1
 fi
 
-printf "\nDo you want to remove the months folders and their contents? [Y/n]: \n"
+# printf "\nDo you want to remove the months folders and their contents? [Y/n]: \n"
+# read answer
+# if [ "$answer" = "y" ] || [ "$answer" = "Y" ]; then
+# 	rm -rf 1.January 2.February 3.March 4.April 5.May 6.June 7.July 8.August 9.September 10.October 11.November 12.December
+# 	printf "\nFolders deleted as follows: \n\n"
+# 	ls .
+# else
+# 	printf "\nNothing deleted."
+# fi
+# printf "\nThe script has finished.\n"
+
+printf "For Testing Purposes, do you want to restore everything? [Y/n]:\n"
 read answer
-if [ "$answer" = "y" ] || [ "$answer" = "Y" ]; then
-	rm -rf 1.January 2.February 3.March 4.April 5.May 6.June 7.July 8.August 9.September 10.October 11.November 12.December
-	printf "\nFolders deleted as follows: \n\n"
-	ls .
+if [ "$answer" = "y" ] || [ "$answer" = "Y" ]
+then
+find . -type f -path "./*" -exec mv '{}' .. \;
+rm -rf '../MOVED'
 else
-	printf "\nNothing deleted."
+printf "Nothing deleted.\n\n"
 fi
-printf "\nThe script has finished.\n"
