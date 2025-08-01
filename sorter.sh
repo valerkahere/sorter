@@ -3,7 +3,7 @@
 printf "\nWelcome\n"
 
 printf "\nEnter the path of the (SOURCE) folder to sort AS IT IS (white spaces are handled automatically)\n"
-printf "Bear in mind, tilde expansion (~) does not work: \n"
+printf "WARNING: tilde expansion (~) does not work: \n"
 
 read pathtodir
 
@@ -40,10 +40,15 @@ else
     exit 1
 fi
 
+isPhotos() {
+    # Images
+    # If the photo files are not in the SOURCE - do not create folder for them
+}
+
 
 isAudio() {
     # Audios
-    # If they audio files are not in the folder - do not create folder for them
+    # If the audio files are not in the folder - do not create folder for them
 
 
 
@@ -126,21 +131,47 @@ sorting() {
 
     # Photos
 
+    printf "Enter 'Y' if you want to sort photos as '2025/05-May/01-05-2025/photos' or 'n' to keep them in a separate 'photos' folder  [Y/n]:\n"
+    read answer
+    if [ "$answer" = "y" ] || [ "$answer" = "Y" ]
+    then
     exiftool '-Directory<DateTimeOriginal' -d '%Y/%m-%B/%d-%m-%Y/photos' -if '$FileTypeExtension =~ /jpe?g|png|webp|gif|bmp|tiff/i' -ext jpg -ext jpeg -ext png -ext webp -ext gif -ext bmp -ext tiff  .
-
-    exiftool '-Directory<FileModifyDate' -d '%Y/%m-%B/%d-%m-%Y/photos' -if '$FileTypeExtension =~ /jpe?g|png|webp|gif|bmp|tiff/i' -ext jpg -ext jpeg -ext png -ext webp -ext gif -ext bmp -ext tiff .
-
+    exiftool '-Directory<FileModifyDate' -d '%Y/%m-%B/%d-%m-%Y/photos' -if '$FileTypeExtension =~ /jpe?g|png|webp|gif|bmp|tiff/i' - 
     printf "Sorted Photos.\n\n"
+    else
+    mkdir 'photos'
+    mv --target-directory=./photos --update --interactive --verbose -- \
+    *.jpg *.JPG *.jpeg *.JPEG \
+    *.png *.PNG *.webp *.WEBP \
+    *.gif *.GIF *.bmp *.BMP \
+    *.tiff *.TIFF
+    printf "\nMoved images to the './photos' folder.\n\n"
+    fi
+
+    
 
     # Videos
 
+    printf "Enter 'Y' if you want to sort videos as '2025/05-May/01-05-2025/videos' or 'n' to keep them in a separate 'videos' folder  [Y/n]:\n"
+    read answer
+    if [ "$answer" = "y" ] || [ "$answer" = "Y" ]
+    then
     exiftool '-Directory<DateTimeOriginal' -d '%Y/%m-%B/%d-%m-%Y/videos' -if '$FileTypeExtension =~ /mp4|mov|avi|mkv|wmv/i' -ext mp4 -ext mov -ext avi -ext mkv -ext wmv .
-
     exiftool '-Directory<FileModifyDate' -d '%Y/%m-%B/%d-%m-%Y/videos' -if '$FileTypeExtension =~ /mp4|mov/i' -ext mp4 -ext mov -ext avi -ext mkv -ext wmv .
-
     printf "Sorted Videos.\n\n"
+    else
+    mkdir 'videos'
+    mv --target-directory=./videos --update --interactive --verbose -- \
+    *.mp4 *.MP4 \
+    *.mov *.MOV \
+    *.avi *.AVI \
+    *.mkv *.MKV \
+    *.wmv *.WMV
+    printf "\nMoved videos to the './videos' folder.\n\n"
+    fi
 
     #Audio
+
     if isAudio
     then 
     printf "Successfully sorted audios.\n\n"
@@ -160,7 +191,7 @@ sorting() {
 
 if sorting
 then
-    printf "\nSorted files in and moved them to videos, photos and docs folders accordingly.\n"
+    printf "\nSorted files and moved them to videos, photos and docs folders accordingly.\n"
 else
     printf "\nError: could not move test files.\n" 1>&2
     exit 1
@@ -177,12 +208,12 @@ fi
 # fi
 # printf "\nThe script has finished.\n"
 
-printf "For Testing Purposes, do you want to restore everything? [Y/n]:\n"
+printf "Enter 'Y' to exit now and 'n' to restore everything? [Y/n]:\n"
 read answer
 if [ "$answer" = "y" ] || [ "$answer" = "Y" ]
 then
+printf "Nothing deleted.\n\n"
+else
 find . -type f -path "./*" -exec mv '{}' .. \;
 rm -rf '../MOVED'
-else
-printf "Nothing deleted.\n\n"
 fi
