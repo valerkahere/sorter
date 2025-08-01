@@ -57,7 +57,7 @@ isAudio() {
     
     if [[ -z "$output" ]]
     then
-    printf "No audio files."
+    printf "No audio files.\n\n"
     else
     printf "Some audio files will be moved know.\n"
     printf "Creating 'audios' folder.\n\n"
@@ -77,7 +77,7 @@ isAudio() {
 isDocs() {
     #Docs
 
-    find . -type f \( \
+    output=$(find . -type f \( \
     -iname "*.doc" -o \
     -iname "*.docx" -o \
     -iname "*.pdf" -o \
@@ -86,7 +86,26 @@ isDocs() {
     -iname "*.ppt" -o \
     -iname "*.pptx" -o \
     -iname "*.csv" \
-    \) -print -quit
+    \) -quit)
+
+    if [[ -z "$output" ]]
+    then
+    printf "No docs files.\n\n"
+    else
+    printf "Docs files exist in current folder. Creating 'docs'.\n\n"
+    mkdir 'docs'
+    mv --target-directory=./docs --update --interactive --verbose -- \
+    *.txt *.TXT *.Txt \
+    *.docx *.doc *.DOCX *.DOC \
+    *.zip *.ZIP \
+    *.fb2 *.FB2 \
+    *.pdf *.PDF \
+    *.xls *.xlsx *.XLS *.XLSX \
+    *.ppt *.pptx *.PPT *.PPTX \
+    *.ics *.md *.epub *.csv *.ICS *.MD *.EPUB *.CSV
+    printf "Sorted Docs.\n\n"
+    fi
+
 }
 
 
@@ -126,27 +145,16 @@ sorting() {
     then 
     printf "Successfully sorted audios.\n\n"
     else
-    printf "Error: Could not decide on audio files.\n\n"
+    printf "Error: Could not decide on audio files.\n\n" 1>&2
     fi
     
 
     # Docs
     if isDocs
     then 
-    printf "Docs files exist in current folder. Creating 'docs'.\n\n"
-    mkdir 'docs'
-    mv --target-directory=./docs --update --interactive --verbose -- \
-    *.txt *.TXT *.Txt \
-    *.docx *.doc *.DOCX *.DOC \
-    *.zip *.ZIP \
-    *.fb2 *.FB2 \
-    *.pdf *.PDF \
-    *.xls *.xlsx *.XLS *.XLSX \
-    *.ppt *.pptx *.PPT *.PPTX \
-    *.ics *.md *.epub *.csv *.ICS *.MD *.EPUB *.CSV
-    printf "Sorted Docs.\n\n"
+    printf "Successfully sorted docs.\n\n"
     else
-    printf "There are no docs files according to available extensions.\n\n"
+    printf "Error: Could not decide on docs files.\n\n" 1>&2
     fi
 }
 
