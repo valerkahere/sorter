@@ -57,3 +57,18 @@ printf "\nError: %s\n" "could not copy\n" >/dev/seterr
 # r: copy directories recursively
 # v: explain what is being done
 # Tested: function works
+
+# Do you want to sort files now?
+printf "\nNow starting sorter.sh script..."
+bash "$HOME/Desktop/Projects/bash/sorter/sorter.sh"
+
+printf "\nDo you want to remove the months folders and their contents? [Y/n]: \n"
+read answer
+if [ "$answer" = "y" ] || [ "$answer" = "Y" ]; then
+	rm -rf 1.January 2.February 3.March 4.April 5.May 6.June 7.July 8.August 9.September 10.October 11.November 12.December
+	printf "\nFolders deleted as follows: \n\n"
+	ls .
+else
+	printf "\nNothing deleted."
+fi
+printf "\nThe script has finished.\n"
