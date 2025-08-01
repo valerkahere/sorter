@@ -43,6 +43,41 @@ fi
 isPhotos() {
     # Images
     # If the photo files are not in the SOURCE - do not create folder for them
+    echo $PWD
+
+    
+
+    output=$(find . -type f -iname "*.jpg" -o -iname ".jpeg" -o -iname ".png" -o -iname ".webp" -o -iname ".gif" -o -iname ".bmp" -o -iname ".tiff" -quit)
+
+ 
+
+
+    if [[ -z "$output" ]]
+    then
+    printf "No photo files.\n\n"
+    else
+    printf "Photo files exist in current folder.\n\n"
+    printf "Enter 'Y' if you want to sort photos as '2025/05-May/01-05-2025/photos' or 'n' to keep them in a separate 'photos' folder  [Y/n]:\n"
+    read answer
+    if [ "$answer" = "y" ] || [ "$answer" = "Y" ]
+    then
+    exiftool '-Directory<DateTimeOriginal' -d '%Y/%m-%B/%d-%m-%Y/photos' -if '$FileTypeExtension =~ /jpe?g|png|webp|gif|bmp|tiff/i' -ext jpg -ext jpeg -ext png -ext webp -ext gif -ext bmp -ext tiff  .
+    exiftool '-Directory<FileModifyDate' -d '%Y/%m-%B/%d-%m-%Y/photos' -if '$FileTypeExtension =~ /jpe?g|png|webp|gif|bmp|tiff/i' - 
+    printf "Sorted Photos.\n\n"
+    else
+    mkdir 'photos'
+    mv --target-directory=./photos --update --interactive --verbose -- \
+    *.jpg *.JPG *.jpeg *.JPEG \
+    *.png *.PNG *.webp *.WEBP \
+    *.gif *.GIF *.bmp *.BMP \
+    *.tiff *.TIFF
+    printf "\nMoved images to the './photos' folder.\n\n"
+    fi
+    fi
+
+    
+
+
 }
 
 
@@ -131,23 +166,14 @@ sorting() {
 
     # Photos
 
-    printf "Enter 'Y' if you want to sort photos as '2025/05-May/01-05-2025/photos' or 'n' to keep them in a separate 'photos' folder  [Y/n]:\n"
-    read answer
-    if [ "$answer" = "y" ] || [ "$answer" = "Y" ]
-    then
-    exiftool '-Directory<DateTimeOriginal' -d '%Y/%m-%B/%d-%m-%Y/photos' -if '$FileTypeExtension =~ /jpe?g|png|webp|gif|bmp|tiff/i' -ext jpg -ext jpeg -ext png -ext webp -ext gif -ext bmp -ext tiff  .
-    exiftool '-Directory<FileModifyDate' -d '%Y/%m-%B/%d-%m-%Y/photos' -if '$FileTypeExtension =~ /jpe?g|png|webp|gif|bmp|tiff/i' - 
-    printf "Sorted Photos.\n\n"
-    else
-    mkdir 'photos'
-    mv --target-directory=./photos --update --interactive --verbose -- \
-    *.jpg *.JPG *.jpeg *.JPEG \
-    *.png *.PNG *.webp *.WEBP \
-    *.gif *.GIF *.bmp *.BMP \
-    *.tiff *.TIFF
-    printf "\nMoved images to the './photos' folder.\n\n"
-    fi
+    
 
+    if isPhotos
+    then
+    printf "Successfully sorted photos.\n\n"
+    else
+    printf "Error: Could not decide on photo files.\n\n" 1>&2
+    fi
     
 
     # Videos
@@ -169,6 +195,13 @@ sorting() {
     *.wmv *.WMV
     printf "\nMoved videos to the './videos' folder.\n\n"
     fi
+
+    # if isVideos
+    # then
+    # printf "Successfully sorted videos.\n\n"
+    # else
+    # printf "Error: Could not decide on video files.\n\n" 1>&2
+    # fi
 
     #Audio
 
