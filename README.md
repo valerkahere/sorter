@@ -1,4 +1,4 @@
-# Automated Media File Organizer ✨
+# Automated Media File Sorter ✨
 
 A powerful Bash script that intelligently organizes thousands of photos, videos, and other files into a clean, chronological directory structure (`YYYY/MM-Month/DD-MM-YYYY`). This script was born from a personal need to tame a chaotic collection of digital media and turn it into a browsable, organized library.
 
