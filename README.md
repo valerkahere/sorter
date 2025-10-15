@@ -2,6 +2,12 @@
 
 A powerful Bash script that intelligently organizes thousands of photos, videos, and other files into a clean, chronological directory structure (`YYYY/MM-Month/DD-MM-YYYY`). This script was born from a personal need to tame a chaotic collection of digital media and turn it into a browsable, organized library.
 
+See how it works below:
+<p align="center">
+  <img src="https://www.valerkahere.com/assets/sorter__demo.gif" alt="Animated demo of the media organizer script" width="650">
+</p>
+
+
 ## The Problem
 
 Digital photo and video collections often become a mess of randomly named files spread across countless folders. Manually sorting this is tedious, time-consuming, and prone to error. This project solves that problem with a "fire-and-forget" script that does all the heavy lifting for you.
