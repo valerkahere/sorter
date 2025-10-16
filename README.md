@@ -7,6 +7,35 @@ See how it works below:
   <img src="https://www.valerkahere.com/assets/sorter__demo.gif" alt="Animated demo of the media organizer script" width="650">
 </p>
 
+The Format of sorting depends on the branch, but generally it is:
+Format:
+2025 > 05-May > 01-05-2025 > photos/videos
+
+MOVED
+```text
+├── 2025
+│   └── 01-January
+│   └── ...
+│   ├── 12-December
+│   │   ├── 01-12-2025
+│   │   │   └── photos
+│   │   │   └── videos
+```
+
+OR
+```text
+MOVED
+└── 2025
+    ├── 01-January
+    │   └── 01-01-2025
+    │       ├── photos
+    │       └── videos
+    ├── 02-February
+    │   └── ...
+    └── ...
+```
+
+
 
 ## The Problem
 
