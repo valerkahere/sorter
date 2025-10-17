@@ -3,7 +3,7 @@
 A powerful Bash script that intelligently organizes thousands of photos, videos, and other files into a clean, chronological directory structure (`YYYY/MM-Month/DD-MM-YYYY`). This script was born from a personal need to tame a chaotic collection of digital media and turn it into a browsable, organized library.
 
 See how it works below:
-![Screen recording of a bash script in action. The video shows a user running the script in a terminal, providing a path to a folder, and the script then automatically moves all files into chronologically sorted folders.](sorter__demo-production-nomusic.mp4)
+![Screen recording of a bash script in action. The video shows a user running the script in a terminal, providing a path to a folder, and the script then automatically moves all files into chronologically sorted folders.](https://www.valerkahere.com/assets/videos/sorter__demo-production-nomusic.mp4)
 
 The Format of sorting depends on the branch, but generally it is:
 Format:
